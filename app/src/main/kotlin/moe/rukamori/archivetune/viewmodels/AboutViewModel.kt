@@ -437,12 +437,6 @@ class AboutViewModel
                             url = "https://koiiverse.cloud/donate",
                         ),
                         AboutLinkUiModel(
-                            id = "discord",
-                            iconResId = R.drawable.discord,
-                            labelResId = R.string.discord,
-                            url = "https://discord.gg/XF2fpb9rTq",
-                        ),
-                        AboutLinkUiModel(
                             id = "privacy_policy",
                             iconResId = R.drawable.lock,
                             labelResId = R.string.privacy,

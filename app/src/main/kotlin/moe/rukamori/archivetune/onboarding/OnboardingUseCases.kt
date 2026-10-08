@@ -230,13 +230,6 @@ class BuildOnboardingUiStateUseCase
                         url = "https://github.com/rukamori/ArchiveTune",
                     ),
                     OnboardingCommunityActionUiModel(
-                        id = "discord",
-                        titleResId = R.string.onboarding_community_discord_title,
-                        descriptionResId = R.string.onboarding_community_telegram_desc,
-                        iconResId = R.drawable.discord,
-                        url = "https://discord.gg/XF2fpb9rTq",
-                    ),
-                    OnboardingCommunityActionUiModel(
                         id = "telegram",
                         titleResId = R.string.onboarding_community_telegram_title,
                         descriptionResId = R.string.onboarding_community_telegram_desc,

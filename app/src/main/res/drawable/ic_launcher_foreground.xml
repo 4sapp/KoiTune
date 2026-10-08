@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <group
+        android:name="petal0"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="0">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal1"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="72">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal2"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="144">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal3"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="216">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal4"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="288">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <path
+        android:pathData="M41,32 L41,76"
+        android:strokeColor="#FF8FC8"
+        android:strokeLineCap="round"
+        android:strokeWidth="10" />
+
+    <path
+        android:pathData="M41,54 L70,32"
+        android:strokeColor="#FF5FA8"
+        android:strokeLineCap="round"
+        android:strokeWidth="10" />
+
+    <path
+        android:pathData="M41,54 L70,76"
+        android:strokeColor="#FF2E86"
+        android:strokeLineCap="round"
+        android:strokeWidth="10" />
+</vector>
