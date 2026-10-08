@@ -64,7 +64,7 @@ android {
     compileSdkMinor = 2
 
     defaultConfig {
-    applicationId = "moe.rukamori.archivetune"
+    applicationId = "io.github.aeee123.koitune"
         minSdk = 26
         targetSdk = 37
         versionCode = 142
