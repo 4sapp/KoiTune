@@ -86,11 +86,11 @@ object DiscordOAuthRepository {
         val verifier = randomUrlSafeString(byteCount = 64)
         val challenge = sha256Base64Url(verifier)
         val scopes =
-            listOf(
-                "openid",
-                "identify",
-                "sdk.social_layer_presence",
-            ).joinToString(separator = " ")
+            BuildConfig.DISCORD_OAUTH_SCOPES
+                .split(' ', '\t')
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .joinToString(separator = " ")
 
         val uri =
             Uri

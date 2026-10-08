@@ -48,6 +48,12 @@ val discordApplicationIdLong = discordApplicationId.toLongOrNull() ?: 0L
 val discordRedirectScheme =
     if (discordApplicationId.isNotEmpty()) "discord-$discordApplicationId"
     else "io.github.aeee123.koitune"
+val discordOauthScopes =
+    (
+        localProperties.getProperty("DISCORD_OAUTH_SCOPES")
+            ?: System.getenv("DISCORD_OAUTH_SCOPES")
+            ?: "identify rpc"
+        ).trim()
 val releaseKeystoreFile = file("keystore/release.keystore")
 val releaseStorePassword =
     System.getenv("STORE_PASSWORD")?.takeIf { it.isNotBlank() }
@@ -147,6 +153,7 @@ android {
             buildConfigField("String", "DISCORD_APPLICATION_ID", "\"$discordApplicationId\"")
             buildConfigField("long", "DISCORD_APPLICATION_ID_LONG", "${discordApplicationIdLong}L")
             buildConfigField("String", "DISCORD_REDIRECT_SCHEME", "\"$discordRedirectScheme\"")
+            buildConfigField("String", "DISCORD_OAUTH_SCOPES", discordOauthScopes.asBuildConfigString())
             manifestPlaceholders["discordRedirectScheme"] = discordRedirectScheme
         }
         create("foss") {
@@ -156,6 +163,7 @@ android {
             buildConfigField("String", "DISCORD_APPLICATION_ID", "\"$discordApplicationId\"")
             buildConfigField("long", "DISCORD_APPLICATION_ID_LONG", "${discordApplicationIdLong}L")
             buildConfigField("String", "DISCORD_REDIRECT_SCHEME", "\"$discordRedirectScheme\"")
+            buildConfigField("String", "DISCORD_OAUTH_SCOPES", discordOauthScopes.asBuildConfigString())
             manifestPlaceholders["discordRedirectScheme"] = discordRedirectScheme
         }
         create("mobile") {
