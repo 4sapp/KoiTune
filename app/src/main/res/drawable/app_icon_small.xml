@@ -1,27 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="185dp"
     android:height="185dp"
-    android:viewportWidth="185"
-    android:viewportHeight="185">
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108"
+                android:type="linear">
+                <item
+                    android:offset="0"
+                    android:color="#FF241033" />
+                <item
+                    android:offset="0.5"
+                    android:color="#FF3D0F3C" />
+                <item
+                    android:offset="1"
+                    android:color="#FF5C1147" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="46"
+                android:centerY="50"
+                android:gradientRadius="62"
+                android:type="radial">
+                <item
+                    android:offset="0"
+                    android:color="#40FF4D97" />
+                <item
+                    android:offset="1"
+                    android:color="#00FF4D97" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <group
+        android:name="petal0"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="0">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal1"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="72">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal2"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="144">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal3"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="216">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
+
+    <group
+        android:name="petal4"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="288">
+        <path
+            android:fillAlpha="0.3"
+            android:fillColor="#FF4D97"
+            android:pathData="M54,54 C43,44 44,26 54,14 C64,26 65,44 54,54 Z" />
+    </group>
 
     <path
-        android:fillColor="#fefffe"
-        android:fillAlpha="0.92"
-        android:strokeAlpha="0.92"
-        android:strokeWidth="1"
-        android:pathData="M 136.5,42.5 C 139.572,42.1826 142.572,42.5159 145.5,43.5C 147.696,46.5596
-149.363,49.893 150.5,53.5C 141.188,70.7896 131.355,87.7896 121,104.5C
-115.248,101.04 109.415,97.7069 103.5,94.5C 108.706,84.5868 114.04,74.7535
-119.5,65C 93.5133,65.9659 67.5133,67.1326 41.5,68.5C 41.5,61.1667 41.5,53.8333
-41.5,46.5C 73.3416,45.5964 105.008,44.2631 136.5,42.5 Z" />
+        android:pathData="M41,32 L41,76"
+        android:strokeColor="#FF8FC8"
+        android:strokeLineCap="round"
+        android:strokeWidth="10" />
+
     <path
-        android:fillColor="#fefffe"
-        android:fillAlpha="0.914"
-        android:strokeAlpha="0.914"
-        android:strokeWidth="1"
-        android:pathData="M 77.5,75.5 C 84.8406,76.1159 92.174,76.7826 99.5,77.5C 97.8365,97.8139
-94.3365,117.814 89,137.5C 87.8225,142.225 85.9892,146.559 83.5,150.5C
-76.3087,148.954 69.3087,146.954 62.5,144.5C 69.9692,122.011 74.9692,99.011
-77.5,75.5 Z" />
+        android:pathData="M41,54 L70,32"
+        android:strokeColor="#FF5FA8"
+        android:strokeLineCap="round"
+        android:strokeWidth="10" />
+
+    <path
+        android:pathData="M41,54 L70,76"
+        android:strokeColor="#FF2E86"
+        android:strokeLineCap="round"
+        android:strokeWidth="10" />
 </vector>

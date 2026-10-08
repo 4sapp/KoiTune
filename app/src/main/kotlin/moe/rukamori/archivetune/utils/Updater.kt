@@ -65,7 +65,8 @@ object Updater {
     private val releaseRepo: String
         get() = BuildConfig.RELEASE_GITHUB_REPO
 
-    private const val CommitHistoryBaseUrl = "https://api.github.com/repos/rukamori/ArchiveTune"
+    private val commitHistoryBaseUrl: String
+        get() = "https://api.github.com/repos/$githubOwner/$githubRepo"
 
     private val stableReleaseBaseUrl: String
         get() = "https://github.com/$releaseOwner/$releaseRepo/releases"
@@ -339,7 +340,7 @@ object Updater {
             client.get("https://api.github.com/repos/$releaseOwner/$releaseRepo/releases?per_page=$perPage") {
                 headers {
                     append("Accept", "application/vnd.github+json")
-                    append("User-Agent", "ArchiveTune")
+                    append("User-Agent", "KoiTune")
                     if (!cachedEtag.isNullOrBlank()) {
                         append("If-None-Match", cachedEtag)
                     }
@@ -408,7 +409,7 @@ object Updater {
 
             val response =
                 client
-                    .get("$CommitHistoryBaseUrl/commits?sha=$branch&per_page=$count")
+                    .get("$commitHistoryBaseUrl/commits?sha=$branch&per_page=$count")
                     .bodyAsText()
             val jsonArray = JSONArray(response)
             val commits = mutableListOf<GitCommit>()
@@ -553,7 +554,7 @@ object Updater {
             client.get(artifactWorkflowRunsUrl) {
                 headers {
                     append("Accept", "application/vnd.github+json")
-                    append("User-Agent", "ArchiveTune")
+                    append("User-Agent", "KoiTune")
                 }
             }
         val responseBody = response.bodyAsText()

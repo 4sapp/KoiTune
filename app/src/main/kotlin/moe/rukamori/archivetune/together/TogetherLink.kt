@@ -53,7 +53,7 @@ object TogetherLink {
     }
 
     private fun decodeDeepLink(uri: URI): TogetherJoinInfo? {
-        if (!uri.scheme.equals("archivetune", ignoreCase = true)) return null
+        if (!uri.scheme.equals("koitune", ignoreCase = true)) return null
         val authority = uri.host?.lowercase() ?: uri.authority?.lowercase() ?: return null
         if (authority != "together") return null
 

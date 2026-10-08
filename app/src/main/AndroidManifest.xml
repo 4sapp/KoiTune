@@ -87,7 +87,7 @@
 
                 <data
                     android:host="together"
-                    android:scheme="archivetune" />
+                    android:scheme="koitune" />
             </intent-filter>
 
             <!-- Youtube filter -->
