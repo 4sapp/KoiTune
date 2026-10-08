@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# 🛠️ CONTRIBUTE TO ARCHIVETUNE
-=======
-#🛠️ Engineering & Build Guide
->>>>>>> 1c00d599b (add no llm policy inspired by ytdlp)
-=======
-# 🛠️ CONTRIBUTE TO ARCHIVETUNE
->>>>>>> 2f5ffcfb9 (docs: update title)
+# 🛠️ CONTRIBUTE TO KOITUNE
 
 This document defines the protocols for setting up the development environment, understanding the underlying technology stack, and compiling **ArchiveTune** from the source.
 
@@ -36,8 +28,8 @@ To ensure build stability and environment parity, the following hardware and sof
 ### **Development Environment**
 
 * **IDE:** [Android Studio](https://developer.android.com/studio) **Ladybug (2024.2.1) or newer**.
-* **Java Runtime:** **JDK 17** (Amazon Corretto or Azul Zulu recommended for deterministic builds).
-* **Android SDK:** API Level 34+ (Upside Down Cake).
+* **Java Runtime:** **JDK 21** (Amazon Corretto or Azul Zulu recommended for deterministic builds).
+* **Android SDK:** API Level 37 (Upside Down Cake).
 * **Version Control:** Git 2.40+.
 
 ### **Technical DNA (Skill Requirements)**
@@ -66,8 +58,8 @@ ArchiveTune follows a strict **Clean Architecture** approach. This separation of
 
 1. **Clone the Source:**
 ```bash
-git clone https://github.com/rukamori/ArchiveTune.git
-cd ArchiveTune
+git clone --recurse-submodules https://github.com/aeee123/KoiTune.git
+cd KoiTune
 
 ```
 
@@ -92,9 +84,9 @@ Use the Gradle Wrapper to execute verified build scripts.
 
 | Command | Output | Context |
 | --- | --- | --- |
-| `./gradlew assembleDebug` | `app-debug.apk` | Local testing & feature development. |
-| `./gradlew assembleRelease` | `app-release.apk` | Production-ready, R8-optimized build. |
-| `./gradlew bundleRelease` | `app-release.aab` | Optimized bundle for distribution. |
+| `./gradlew assembleGmsMobileUniversalDebug` | `app-debug.apk` | Local testing & feature development. |
+| `./gradlew assembleGmsMobileUniversalRelease` | `app-release.apk` | Production-ready, R8-optimized build. |
+| `./gradlew bundleGmsMobileUniversalRelease` | `app-release.aab` | Optimized bundle for distribution. |
 | `./gradlew clean` | `N/A` | Flushes build cache to resolve sync issues. |
 
 ---
@@ -103,9 +95,9 @@ Use the Gradle Wrapper to execute verified build scripts.
 
 Before initiating a Pull Request, every contributor must run the following quality gates:
 
-* **Linting:** `./gradlew lintDebug` (Ensures adherence to Android XML/Compose standards).
-* **Formatting:** `./gradlew ktlintCheck` (Ensures consistent Kotlin styling).
-* **Logic Verification:** `./gradlew testDebugUnitTest` (Runs the architectural unit tests).
+* **Linting:** `./gradlew :app:lintGmsMobileUniversalDebug` (Ensures adherence to Android XML/Compose standards).
+* **Formatting:** `./gradlew spotlessCheck` (Ensures consistent Kotlin styling).
+* **Logic Verification:** `./gradlew :app:testGmsMobileUniversalDebugUnitTest` (Runs the architectural unit tests).
 
 ---
 

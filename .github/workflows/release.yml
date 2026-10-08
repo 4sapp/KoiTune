@@ -14,10 +14,20 @@ jobs:
     outputs:
       version_changed: ${{ steps.check_version.outputs.version_changed }}
       new_version: ${{ steps.check_version.outputs.new_version }}
+      signing_enabled: ${{ steps.signing.outputs.enabled }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+
+      - name: Check signing secrets
+        id: signing
+        env:
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: python3 scripts/check_signing_config.py
 
       - name: Check version and Tag
         id: check_version
@@ -52,7 +62,7 @@ jobs:
 
   reproducibility:
     needs: check-version
-    if: needs.check-version.outputs.version_changed == 'true'
+    if: needs.check-version.outputs.version_changed == 'true' && needs.check-version.outputs.signing_enabled == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -146,7 +156,7 @@ jobs:
   build:
     name: Build Release APKs
     needs: [check-version, reproducibility]
-    if: needs.check-version.outputs.version_changed == 'true'
+    if: needs.check-version.outputs.version_changed == 'true' && needs.check-version.outputs.signing_enabled == 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -355,7 +365,7 @@ jobs:
 
   create-release:
     needs: [check-version, build]
-    if: needs.check-version.outputs.version_changed == 'true'
+    if: needs.check-version.outputs.version_changed == 'true' && needs.check-version.outputs.signing_enabled == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read

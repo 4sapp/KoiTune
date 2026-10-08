@@ -1,6 +1,7 @@
 name: Build Pull Request
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - "**"
@@ -22,6 +23,9 @@ jobs:
 
       - name: Generate translation contributor credits
         run: python scripts/generate_translation_contributors.py
+
+      - name: Test release signing configuration
+        run: python scripts/test_signing_config.py
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
@@ -53,11 +57,11 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-      - name: Build and Lint Mobile Universal Debug APK
+      - name: Build, test and lint Mobile Universal Debug APK
         shell: bash
         run: |
           set -euo pipefail
-          ./gradlew --console=plain assembleGmsMobileUniversalDebug :app:lintGmsMobileUniversalDebug --warning-mode summary 2>&1 | python3 -c "import re,sys;p=re.compile(r'^(WARNING: )?\[CXX5202\] This app only has 32-bit \[(armeabi-v7a|x86)\] native libraries\. Beginning August 1, 2019 Google Play store requires that all apps that include native libraries must provide 64-bit versions\. For more information, visit https://g\.co/64-bit-requirement\$');[sys.stdout.write(l) for l in sys.stdin if not p.match(l.rstrip())]"
+          ./gradlew --console=plain assembleGmsMobileUniversalDebug :app:testGmsMobileUniversalDebugUnitTest :app:lintGmsMobileUniversalDebug --warning-mode summary
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           PULL_REQUEST: "true"
@@ -67,10 +71,21 @@ jobs:
           CANVAS_BEARER_TOKEN: ${{ secrets.CANVAS_BEARER_TOKEN }}
           EXTRACTOR_BEARER: ${{ secrets.EXTRACTOR_BEARER }}
 
+      - name: Upload test and lint reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-and-lint-reports-${{ github.event.number || github.run_number }}
+          if-no-files-found: ignore
+          path: |
+            app/build/reports/tests/
+            app/build/test-results/
+            app/build/reports/lint-results-*
+
       - name: Upload APK
         uses: actions/upload-artifact@v7
         with:
-          name: app-mobile-universal-debug-pr-${{ github.event.number }}
+          name: app-mobile-universal-debug-check-${{ github.event.number || github.run_number }}
           path: |
             app/build/outputs/apk/gms/mobile/universal/debug/*.apk
             app/build/outputs/apk/gmsMobileUniversal/debug/*.apk

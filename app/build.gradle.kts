@@ -25,7 +25,7 @@ fun String.asBuildConfigString(): String =
             .replace("\t", "\\t")
     }\""
 
-val fallbackDataServerUrl = "archive-tune-admin-remote.vercel.app"
+val fallbackDataServerUrl = "https://archive-tune-admin-remote.vercel.app"
 val dataServerUrl =
     rootProject
         .file("DataServer.txt")

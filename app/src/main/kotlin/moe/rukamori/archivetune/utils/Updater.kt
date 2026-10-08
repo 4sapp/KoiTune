@@ -27,6 +27,7 @@ import moe.rukamori.archivetune.constants.GitHubReleasesJsonKey
 import moe.rukamori.archivetune.constants.GitHubReleasesLastCheckedAtKey
 import org.json.JSONArray
 import org.json.JSONObject
+import java.math.BigInteger
 
 data class GitCommit(
     val sha: String,
@@ -158,7 +159,7 @@ object Updater {
 
     private data class NumericIdentifier(
         override val raw: String,
-        val value: Long,
+        val value: BigInteger,
     ) : PreReleaseIdentifier {
         override fun compareTo(other: PreReleaseIdentifier): Int =
             when (other) {
@@ -193,7 +194,7 @@ object Updater {
                 ?.filter { it.isNotBlank() }
                 ?.map { identifier ->
                     if (identifier.all { it.isDigit() }) {
-                        NumericIdentifier(raw = identifier, value = identifier.toLong())
+                        NumericIdentifier(raw = identifier, value = identifier.toBigInteger())
                     } else {
                         AlphaIdentifier(raw = identifier)
                     }
