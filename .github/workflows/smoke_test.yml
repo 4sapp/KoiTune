@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      - uses: actions/checkout@v7
+
       - name: Download tested APK
         uses: actions/download-artifact@v8
         with:
@@ -41,23 +43,7 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: |
-            set -euo pipefail
-            mapfile -t APKS < <(find apk -type f -name '*.apk')
-            test "${#APKS[@]}" -eq 1
-            adb install "${APKS[0]}"
-            adb logcat -c
-            adb shell am start -W -n io.github.aeee123.koitune.debug/moe.rukamori.archivetune.MainActivity | tee startup.txt
-            grep -q 'Status: ok' startup.txt
-            for attempt in 1 2 3 4; do
-              sleep 5
-              adb shell pidof io.github.aeee123.koitune.debug
-            done
-            adb logcat -b crash -d > crash-log.txt
-            ! grep -Fq 'Process: io.github.aeee123.koitune.debug' crash-log.txt
-            adb exec-out screencap -p > startup.png
-            adb shell uiautomator dump /sdcard/window.xml
-            adb pull /sdcard/window.xml startup-window.xml
+          script: bash scripts/android_startup_smoke.sh
 
       - name: Upload startup evidence
         if: always()
