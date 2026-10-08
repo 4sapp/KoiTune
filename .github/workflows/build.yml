@@ -421,7 +421,6 @@ jobs:
     if: github.ref == 'refs/heads/dev' && github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
     needs:
       - build
-      - aggregateAndSend
       - build_debug
     uses: ./.github/workflows/notify_user.yml
     permissions:

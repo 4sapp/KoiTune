@@ -256,10 +256,10 @@ object Updater {
 
     internal fun findLatestCanaryRelease(releases: List<ReleaseInfo>): ReleaseInfo? {
         if (releases.isEmpty()) return null
-        return releases.maxWithOrNull(compareByDescending<ReleaseInfo> { release ->
+        return releases.maxWithOrNull(compareBy<ReleaseInfo> { release ->
             val dateTag = release.tagName.removePrefix("N").takeWhile { it.isDigit() }
             dateTag.toLongOrNull() ?: 0L
-        }.thenByDescending { it.publishedAt })
+        }.thenBy { it.publishedAt })
     }
 
     private fun preferredReleaseVersionNameOrNull(release: ReleaseInfo): String? =
