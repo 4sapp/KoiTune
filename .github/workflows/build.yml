@@ -23,16 +23,24 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       telegram_enabled: ${{ steps.telegram.outputs.enabled }}
+      telegram_upload_enabled: ${{ steps.telegram.outputs.upload_enabled }}
     steps:
       - id: telegram
         env:
           BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
         run: |
           if [ -n "$BOT_TOKEN" ] && [ -n "$CHAT_ID" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+          if [ -n "$BOT_TOKEN" ] && [ -n "$CHAT_ID" ] && [ -n "$API_ID" ] && [ -n "$API_HASH" ]; then
+            echo "upload_enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "upload_enabled=false" >> "$GITHUB_OUTPUT"
           fi
 
   signing:
@@ -294,7 +302,8 @@ jobs:
   aggregateAndSend:
     name: Send APKs to Telegram
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, configuration]
+    if: needs.configuration.outputs.telegram_upload_enabled == 'true'
     steps:
       - uses: actions/checkout@v7
         with:

@@ -6,6 +6,15 @@ import org.junit.Test
 
 class UpdaterVersionTest {
     @Test
+    fun comparesLargeVersionComponentsWithoutOfferingDowngrades() {
+        assertTrue(Updater.isUpdateAvailable("2147483649.0.0", "2147483648.0.0"))
+        assertFalse(Updater.isUpdateAvailable("2147483648.0.0", "2147483649.0.0"))
+        assertFalse(Updater.isUpdateAvailable("1.2147483648.0", "1.2147483649.0"))
+        assertFalse(Updater.isUpdateAvailable("1.0.2147483648", "1.0.2147483649"))
+        assertTrue(Updater.isSameVersion("v2147483648.0.0", "2147483648.0.0"))
+    }
+
+    @Test
     fun comparesNumericPrereleasesBeyondLongRange() {
         assertTrue(
             Updater.isUpdateAvailable(

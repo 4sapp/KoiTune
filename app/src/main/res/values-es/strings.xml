@@ -84,7 +84,7 @@
     <string name="together_ban">Bloquear</string>
     <string name="together_kick_confirm">¿Expulsar a %1$s?</string>
     <string name="together_ban_confirm">¿Bloquear a %1$s?</string>
-    <string name="together_requesting_song_change">Solicitando al anfitrión que cambie la canción 1�7</string>
+    <string name="together_requesting_song_change">Solicitando al anfitrión que cambie la canción…</string>
     <string name="together_song_change_failed">El cambio de canción no se ha aplicado. Inténtalo de nuevo.</string>
     <string name="remove_from_history">Quitar del historial</string>
     <string name="remove_from_playlist">Quitar de la lista de reproducción</string>

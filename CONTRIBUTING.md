@@ -29,7 +29,7 @@ To ensure build stability and environment parity, the following hardware and sof
 
 * **IDE:** [Android Studio](https://developer.android.com/studio) **Ladybug (2024.2.1) or newer**.
 * **Java Runtime:** **JDK 21** (Amazon Corretto or Azul Zulu recommended for deterministic builds).
-* **Android SDK:** API Level 37 (Upside Down Cake).
+* **Android SDK:** API Level 37.
 * **Version Control:** Git 2.40+.
 
 ### **Technical DNA (Skill Requirements)**

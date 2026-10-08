@@ -119,9 +119,9 @@ object Updater {
     }
 
     private data class SemVer(
-        val major: Int,
-        val minor: Int,
-        val patch: Int,
+        val major: BigInteger,
+        val minor: BigInteger,
+        val patch: BigInteger,
         val preRelease: List<PreReleaseIdentifier>,
     ) : Comparable<SemVer> {
         override fun compareTo(other: SemVer): Int {
@@ -184,9 +184,9 @@ object Updater {
 
     private fun parseSemVerOrNull(text: String): SemVer? {
         val match = semVerRegex.find(text) ?: return null
-        val major = match.groupValues.getOrNull(1)?.toIntOrNull() ?: return null
-        val minor = match.groupValues.getOrNull(2)?.toIntOrNull() ?: return null
-        val patch = match.groupValues.getOrNull(3)?.toIntOrNull() ?: return null
+        val major = match.groupValues.getOrNull(1)?.toBigIntegerOrNull() ?: return null
+        val minor = match.groupValues.getOrNull(2)?.toBigIntegerOrNull() ?: return null
+        val patch = match.groupValues.getOrNull(3)?.toBigIntegerOrNull() ?: return null
         val preReleaseText = match.groupValues.getOrNull(4)?.takeIf { it.isNotBlank() }
         val preRelease =
             preReleaseText
