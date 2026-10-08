@@ -23,6 +23,8 @@ data class ResolvedDiscordImages(
 
 object DiscordImageResolver {
     private const val TAG = "DiscordImageResolver"
+    private const val APP_ICON_FALLBACK_URL =
+        "https://raw.githubusercontent.com/aeee123/KoiTune/main/fastlane/metadata/android/en-US/images/icon.png"
 
     private var cachedSongId: String? = null
     private var cachedImages: ResolvedDiscordImages? = null
@@ -143,16 +145,18 @@ object DiscordImageResolver {
                 resolvedImages.thumbnailResolvedId
                     ?: resolvedImages.thumbnailOriginalUrl
                     ?: song.song.thumbnailUrl?.asHttpUrl()
+                    ?: APP_ICON_FALLBACK_URL
             }
 
             "artist" -> {
                 resolvedImages.channelAvatarUrl
                     ?: resolvedImages.artistResolvedId
                     ?: resolvedImages.artistOriginalUrl
+                    ?: APP_ICON_FALLBACK_URL
             }
 
             "appicon" -> {
-                "https://raw.githubusercontent.com/rukamori/ArchiveTune/main/fastlane/metadata/android/en-US/images/icon.png"
+                APP_ICON_FALLBACK_URL
             }
 
             "custom" -> {
