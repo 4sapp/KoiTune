@@ -1,0 +1,72 @@
+name: Android startup smoke test
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Successful debug validation run containing the APK
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  startup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download tested APK
+        uses: actions/download-artifact@v8
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.build_run_id }}
+          pattern: app-mobile-universal-debug-check-*
+          path: apk
+          merge-multiple: true
+
+      - name: Enable hardware acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Install and launch on Android 15
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: |
+            set -euo pipefail
+            mapfile -t APKS < <(find apk -type f -name '*.apk')
+            test "${#APKS[@]}" -eq 1
+            adb install "${APKS[0]}"
+            adb logcat -c
+            adb shell am start -W -n io.github.aeee123.koitune.debug/moe.rukamori.archivetune.MainActivity | tee startup.txt
+            grep -q 'Status: ok' startup.txt
+            for attempt in 1 2 3 4; do
+              sleep 5
+              adb shell pidof io.github.aeee123.koitune.debug
+            done
+            adb logcat -b crash -d > crash-log.txt
+            ! grep -Fq 'Process: io.github.aeee123.koitune.debug' crash-log.txt
+            adb exec-out screencap -p > startup.png
+            adb shell uiautomator dump /sdcard/window.xml
+            adb pull /sdcard/window.xml startup-window.xml
+
+      - name: Upload startup evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-startup-evidence
+          if-no-files-found: ignore
+          path: |
+            startup.txt
+            crash-log.txt
+            startup.png
+            startup-window.xml
